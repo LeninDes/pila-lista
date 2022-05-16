@@ -1,0 +1,95 @@
+#include<iostream>
+using namespace std;
+
+class Nodo{
+	int dato;
+	Nodo* enlace;
+	Nodo* primerElemento;
+	public:
+		Nodo(){}
+
+		void inicializarPila(){
+			primerElemento= NULL;	
+		}
+		bool pilaVacia(){
+			return (primerElemento ==NULL);
+		}
+		void agregarElemento(int elemento){
+			Nodo* nuevoNodo = new Nodo();
+			nuevoNodo->dato = elemento;
+			if(pilaVacia()){
+				nuevoNodo->enlace = NULL;
+				primerElemento=nuevoNodo;
+			} else {
+				nuevoNodo->enlace=primerElemento;
+				primerElemento=nuevoNodo;
+			}
+		}
+		void eliminarElemento(){
+			Nodo* eliminarElemento = new Nodo();
+			eliminarElemento=primerElemento;
+			primerElemento = primerElemento->enlace;
+			
+		}
+		
+		void imprimir(){
+			Nodo* aux = new Nodo();
+			aux = primerElemento;
+			
+			if(pilaVacia()){
+				cout<<"No hay elementos poara imprimir"<<endl;
+			} else {
+				while(aux != NULL){
+					cout<<aux->dato<<endl;
+					aux = aux->enlace;
+				}
+				cout<<"\n";
+			}
+		}
+};
+
+void MostrarMenu()
+{
+    cout << "1.- Ver el contenido de la Pila - Lista" << endl;
+    cout << "2.- Insertar un elemento" << endl;
+    cout << "3.- Eliminar elemento" << endl;
+    cout << "0.- Salir" << endl;
+}
+
+int main(){
+	
+	Nodo edades = Nodo();
+	edades.inicializarPila();
+	
+	int elemento;
+    int opcion;
+    do
+    {
+        MostrarMenu();
+        cin >> opcion;
+        switch (opcion)
+        {
+        case 0:
+            cout << "Ingeniería de Sistemas, hasta luego." << endl;
+            break;
+        case 1:
+            edades.imprimir();
+            break;
+        case 2:
+            cout << "Agrega su elemento" << endl;
+            cin >> elemento;
+            edades.agregarElemento(elemento);
+            break;
+        case 3:
+            cout << "Elemento Eliminado" << endl;
+            cin >> elemento;
+            edades.eliminarElemento();
+            break;
+        default:
+            cout << "Opción no valida." << endl;
+            break;
+        }
+    } while (opcion != 0);
+	
+	
+}
